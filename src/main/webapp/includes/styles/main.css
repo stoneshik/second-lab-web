@@ -38,24 +38,21 @@ label {
 #pole_size {
     width: 100%;
 }
-.container-outer {
+.container {
     display: flex;
+    justify-content: space-around;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.container.column {
+    flex-direction: column;
     justify-content: center;
-}
-.container-inner {
-    display: inline-flex;
-
-}
-.container-inner > div {
+    align-content: space-around;
 }
 #header {
-    height: 80px;
+    min-height: 125px;
     background-color: #EEE;
-    padding: 32px;
     text-align: center;
-}
-#left_col {
-    width: 40%;
 }
 #canvas {
     margin-top: 5%;
@@ -64,14 +61,8 @@ label {
     display: inline-block;
     border: 1px solid #000;
 }
-.column {
-    width: 200px;
-    vertical-align:top;
-    background-color: #FFF;
-}
 .wrapper {
     height: 100%;
-    /*position: relative;*/
 }
 
 .ui-form {
