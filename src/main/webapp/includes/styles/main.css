@@ -38,6 +38,9 @@ label {
 #pole_size {
     width: 100%;
 }
+#wrapper {
+    padding: 0 20px;
+}
 .container {
     display: flex;
     justify-content: space-around;
@@ -61,10 +64,6 @@ label {
     display: inline-block;
     border: 1px solid #000;
 }
-.wrapper {
-    height: 100%;
-}
-
 .ui-form {
     max-width: 450px;
     padding: 80px 30px 30px;
@@ -188,8 +187,9 @@ fieldset input:checked {
 }
 
 #results {
-    width: 100%;
+    max-width: 400px;
     padding: 5px;
+    margin-bottom: 10px;
     background-color: #EEE;
     border: none;
 }
