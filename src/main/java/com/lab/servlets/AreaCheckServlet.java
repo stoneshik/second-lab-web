@@ -2,6 +2,11 @@ package com.lab.servlets;
 
 import java.io.*;
 
+import com.lab.models.dot.Dot;
+import com.lab.models.dot.NumberPlane;
+import com.lab.models.errors.DotWrapperParamError;
+import com.lab.models.wrappers.DotWrapper;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -10,13 +15,46 @@ import jakarta.servlet.annotation.*;
 public class AreaCheckServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // Hello
+        String x = request.getParameter("x");
+        String y = request.getParameter("y");
+        String r = request.getParameter("r");
+        if (x == null || y == null || r == null) {
+            includeHtml(request, response);
+            return;
+        }
+
+        DotWrapper dotWrapper;
+        try {
+            dotWrapper = new DotWrapper(
+                    request,
+                    new Dot(Double.parseDouble(x), Double.parseDouble(y)),
+                    new NumberPlane(Double.parseDouble(r))
+            );
+        } catch (NumberFormatException e) {
+            DotWrapperParamError dotWrapperParamError = new DotWrapperParamError(
+                    "Не получилось считать аргументы:"
+            );
+            dotWrapperParamError.addInSession(request.getSession());
+            includeHtml(request, response);
+            return;
+        }
+
+        if (!dotWrapper.checkDot() || !dotWrapper.checkNumberPlane()) {
+            DotWrapperParamError dotWrapperParamError = new DotWrapperParamError(
+                    "Ошибка в аргументах:", dotWrapper.getListWrongParams()
+            );
+            dotWrapperParamError.addInSession(request.getSession());
+        }
+        dotWrapper.saveWrapper();
+        includeHtml(request, response);
+    }
+
+    private void includeHtml(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
         try {
-            request.getRequestDispatcher("/includes/header.html").include(request, response);
-            request.getRequestDispatcher("/includes/results.html").include(request, response);
-            request.getRequestDispatcher("/includes/footer.html").include(request, response);
+            RequestDispatcher view = request.getRequestDispatcher("/includes/area-check.jsp");
+            view.include(request, response);
         } catch (ServletException e) {}
     }
 }
