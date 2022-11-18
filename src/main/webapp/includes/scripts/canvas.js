@@ -1,25 +1,3 @@
-const canvas = document.getElementById('canvas');
-const canvasObj = {
-    width: canvas.width,
-    height: canvas.height,
-    font: "16px serif",
-    center: {x: 0, y: 0},
-    dotArgs: {x: 0, y: 0, r: 0},
-    step: {x: 17, y: 17},
-    serif: {
-        numSerif: {x: 2, y: 2},
-        numStepForSerif: {x: 3, y: 3}
-    },
-    r: {},
-    lineWidth: 1,
-};
-canvasObj.r = {
-    step: {
-        x: canvasObj.serif.numStepForSerif.x * canvasObj.step.x,
-        y: canvasObj.serif.numStepForSerif.y * canvasObj.step.y
-    }
-}
-
 function getArgsForGraph(canvas) {
     let x = canvas.getAttribute('x');
     let y = canvas.getAttribute('y');
@@ -131,7 +109,6 @@ function drawSerifs(ctx, canvasObj, color) {
 function drawLabels(ctx, canvasObj, color) {
     const center = canvasObj.center;
     const step = canvasObj.step;
-    const serif = canvasObj.serif;
     const r = canvasObj.r;
 
     ctx.font = canvasObj.font;

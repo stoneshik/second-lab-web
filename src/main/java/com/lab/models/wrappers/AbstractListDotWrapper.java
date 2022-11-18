@@ -13,6 +13,10 @@ public abstract class AbstractListDotWrapper<T extends AbstractDotWrapper> {
         this.listDotWrapper = listDotWrapper;
     }
 
+    public List<T> getListDotWrapper() {
+        return this.listDotWrapper;
+    }
+
     abstract public void add(T value);
     abstract public T getLast();
 }

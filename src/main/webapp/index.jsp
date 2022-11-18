@@ -1,8 +1,27 @@
+<%@ page import="com.lab.models.wrappers.ListDotWrapper" %>
+<%@ page import="com.lab.models.wrappers.DotWrapper" %>
+<%@ page import="com.lab.models.dot.Dot" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="includes/header.html"/>
     <div id="wrapper" class="container">
         <div id="left_col">
-            <canvas id="canvas" height="600" width="600" x="0" y="0" r="0"></canvas>
+            <canvas id="canvas" height="600" width="600"
+            <% ListDotWrapper listDotWrapper = (ListDotWrapper) request.getSession().getAttribute("list_dot_wrapper");
+                if (listDotWrapper == null) { %>
+                    x="0" y="0" r="0"
+                <% } else {
+                    DotWrapper dotWrapper = listDotWrapper.getLast(); %>
+                <%= String.format(
+                            "x=%s, y=%s, r=%s",
+                            dotWrapper.getDot().getX(),
+                            dotWrapper.getDot().getY(),
+                            dotWrapper.getNumberPlane().getR()
+                    )
+                %>
+                <% } %>
+                    ></canvas>
         </div>
         <form action="/web2-1.0-SNAPSHOT/controller-servlet" method="GET" class="ui-form" id="dot-form">
             <h3>Проверка попадания точки</h3>
@@ -38,15 +57,30 @@
             <h2>Результаты проверки</h2>
             <table id="results">
                 <tbody>
-                <tr class="response neutral single-column"><td colspan="3">Пока здесь пусто</td></tr>
+                <% if (listDotWrapper == null) { %>
+                    <tr class="response neutral single-column"><td colspan="3">Пока здесь пусто</td></tr>
+                <% } else {
+                    for (DotWrapper dotWrapper : listDotWrapper.getListDotWrapper()) {
+                        if (dotWrapper.getNumberPlane().checkPointHitInArea((Dot) dotWrapper.getDot())) { %>
                 <tr id="last-response" class="response success triple-column">
                     <td>Точка попала</td>
+                    <% } else { %>
                 <tr class="response fail triple-column">
                     <td>Точка не попала</td>
+                    <% } %>
                     <td>Время работы скрипта ms</td>
-                    <td class=per-last>Время: </td>
-                    <td class="last">Аргументы: </td>
+                    <td class=per-last>Время: <%= new SimpleDateFormat("HH:mm:ss").format(new Date())%></td>
+                    <td class="last">Аргументы: <%=
+                    String.format(
+                            "x=%s, y=%s, r=%s",
+                            dotWrapper.getDot().getX(),
+                            dotWrapper.getDot().getY(),
+                            dotWrapper.getNumberPlane().getR()
+                    )
+                    %></td>
                 </tr>
+                <% }
+                }%>
                 </tbody>
             </table>
         </div>
