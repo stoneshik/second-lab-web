@@ -200,7 +200,7 @@ fieldset input:checked {
     min-width: 250px;
 }
 #area-check-results {
-    min-width: 550px;
+    min-width: 600px;
 }
 .response {
     display: inline-block;

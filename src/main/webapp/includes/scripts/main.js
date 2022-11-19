@@ -76,7 +76,6 @@ canvas.addEventListener('click', (e) => {
     if (!filterForm(xy['x'], xy['y'], valueR, formError)) {
         return 0;
     }
-    console.log(xy);
     $.get(
         '/web2-1.0-SNAPSHOT/controller-servlet',
         {'x': xy['x'], 'y': xy['y'], 'r': valueR},

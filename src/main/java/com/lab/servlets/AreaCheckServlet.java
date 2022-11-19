@@ -6,8 +6,6 @@ import com.lab.models.dot.Dot;
 import com.lab.models.dot.NumberPlane;
 import com.lab.models.errors.DotWrapperParamError;
 import com.lab.models.wrappers.DotWrapper;
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -20,7 +18,7 @@ public class AreaCheckServlet extends HttpServlet {
         String y = request.getParameter("y");
         String r = request.getParameter("r");
         if (x == null || y == null || r == null) {
-            includeHtml(request, response);
+            redirect(response);
             return;
         }
 
@@ -36,7 +34,7 @@ public class AreaCheckServlet extends HttpServlet {
                     "Не получилось считать аргументы:"
             );
             dotWrapperParamError.addInSession(request.getSession());
-            includeHtml(request, response);
+            redirect(response);
             return;
         }
 
@@ -45,20 +43,16 @@ public class AreaCheckServlet extends HttpServlet {
                     "Ошибка в аргументах:", dotWrapper.getListWrongParams()
             );
             dotWrapperParamError.addInSession(request.getSession());
-            includeHtml(request, response);
+            redirect(response);
             return;
         }
         dotWrapper.setTimeLead(System.nanoTime() - startTime);
         dotWrapper.saveWrapper();
-        includeHtml(request, response);
+        redirect(response);
     }
 
-    private void includeHtml(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void redirect(HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        request.setCharacterEncoding("UTF-8");
-        try {
-            RequestDispatcher view = request.getRequestDispatcher("/includes/area-check.jsp");
-            view.include(request, response);
-        } catch (ServletException e) {}
+        response.sendRedirect("/web2-1.0-SNAPSHOT/area-check.jsp");
     }
 }

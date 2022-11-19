@@ -4,10 +4,10 @@
 <%@ page import="com.lab.models.errors.DotWrapperParamError" %>
 <%@ page session="false" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<jsp:include page="header.html"/>
+<jsp:include page="includes/header.html"/>
 <div id="wrapper" class="container">
     <div>
-        <h2>Results checks</h2>
+        <h2>Результат проверки</h2>
         <table id="area-check-results" class="results">
             <tbody>
             <% ListDotWrapper listDotWrapper = (ListDotWrapper) request.getSession().getAttribute("list_dot_wrapper");
@@ -17,17 +17,17 @@
                 DotWrapper dotWrapper = listDotWrapper.getLast();
                 if (dotWrapper.getNumberPlane().checkPointHitInArea((Dot) dotWrapper.getDot())) { %>
                 <tr id="last-response" class="response success double-column">
-                    <td>Dot hit</td>
+                    <td>Точка попала</td>
                 <% } else { %>
                 <tr class="response fail double-column">
-                    <td>Dot not hit</td>
+                    <td>Точка не попала</td>
                 <% } %>
-                    <td class="last">Args: <%=
+                    <td class="last">Параметры: <%=
                         String.format(
-                                "x=%s, y=%s, r=%s",
-                                dotWrapper.getDot().getX(),
-                                dotWrapper.getDot().getY(),
-                                dotWrapper.getNumberPlane().getR()
+                            "x=%s, y=%s, r=%s",
+                            dotWrapper.getDot().getX(),
+                            dotWrapper.getDot().getY(),
+                            dotWrapper.getNumberPlane().getR()
                         )
                     %></td>
                 </tr>
@@ -42,7 +42,7 @@
             </p>
             <% } %>
         </table>
-        <div><a href="/web2-1.0-SNAPSHOT/">Go back</a></div>
+        <div><a href="/web2-1.0-SNAPSHOT/">Вернуться обратно</a></div>
     </div>
 </div>
-<jsp:include page="footer.html"/>
+<jsp:include page="includes/footer.html"/>

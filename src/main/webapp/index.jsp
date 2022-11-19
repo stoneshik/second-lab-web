@@ -25,18 +25,19 @@
                 <h3>Проверка попадания точки</h3>
                 <fieldset id="x">
                     <label>X:</label>
-                    <input type="radio" value="-4" name="x" checked>-4
+                    <input type="radio" value="-4" name="x">-4
                     <input type="radio" value="-3" name="x">-3
                     <input type="radio" value="-2" name="x">-2
                     <input type="radio" value="-1" name="x">-1
-                    <input type="radio" value="0" name="x">0
+                    <input type="radio" value="0" name="x" checked>0
                     <input type="radio" value="1" name="x">1
                     <input type="radio" value="2" name="x">2
                     <input type="radio" value="3" name="x">3
                     <input type="radio" value="4" name="x">4
                 </fieldset>
                 <div class="form-row">
-                    <input type="text" id="y" name="y" required autocomplete="off"><label for="y" class="text-input-label">Y:</label>
+                    <input type="text" id="y" name="y" required autocomplete="off">
+                    <label for="y" class="text-input-label">Y:</label>
                 </div>
                 <div class="form-row">
                     <label for="r">R:</label>
@@ -71,10 +72,10 @@
                     <td class=per-last><%= new SimpleDateFormat("HH:mm:ss").format(dotWrapper.getTimeDispatch())%></td>
                     <td class="last">Параметры: <%=
                     String.format(
-                            "x=%s, y=%s, r=%s",
-                            roundDouble(dotWrapper.getDot().getX(), 6),
-                            roundDouble(dotWrapper.getDot().getY(), 6),
-                            roundDouble(dotWrapper.getNumberPlane().getR(), 6)
+                        "x=%s, y=%s, r=%s",
+                        roundDouble(dotWrapper.getDot().getX(), 6),
+                        roundDouble(dotWrapper.getDot().getY(), 6),
+                        roundDouble(dotWrapper.getNumberPlane().getR(), 6)
                     )
                     %></td>
                 </tr>
