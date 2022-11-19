@@ -19,4 +19,5 @@ public abstract class AbstractListDotWrapper<T extends AbstractDotWrapper> {
 
     abstract public void add(T value);
     abstract public T getLast();
+    abstract public String getAllParamsInString();
 }

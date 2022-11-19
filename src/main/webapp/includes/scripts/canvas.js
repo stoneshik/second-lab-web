@@ -1,12 +1,15 @@
 function getArgsForGraph(canvas) {
-    let x = canvas.getAttribute('x');
-    let y = canvas.getAttribute('y');
-    let r = canvas.getAttribute('r');
+    let arrayX = canvas.getAttribute('x').split(';');
+    let arrayY = canvas.getAttribute('y').split(';');
+    let arrayR = canvas.getAttribute('r').split(';');
 
-    if (x == null || y == null || r == null) {
+    if (arrayX.length === 0 || arrayY.length === 0 || arrayR.length === 0) {
         return null;
     }
-    return {'x': x, 'y': y, 'r': r};
+    if (arrayX.length !== arrayY.length || arrayY.length !== arrayR.length) {
+        return null;
+    }
+    return {'x': arrayX, 'y': arrayY, 'r': arrayR};
 }
 
 function findCenter(canvasObj) {
@@ -126,26 +129,33 @@ function drawLabels(ctx, canvasObj, color) {
     ctx.strokeText('y', center.x + step.x, Math.round(step.y * 0.6));
 }
 
-function drawDot(ctx, canvasObj, color) {
+function drawDot(ctx, canvasObj, colorForFirst, otherColor) {
     const args = getArgsForGraph(canvas);
     if (args == null) {
         return;
     }
-    const x = Number.parseFloat(args['x']);
-    const y = Number.parseFloat(args['y']);
-    const r = Number.parseFloat(args['r']);
+    let x, y, r;
     const center = canvasObj.center;
     const stepR = canvasObj.r.step;
-    ctx.beginPath();
-    ctx.arc(
-        center.x + ((x / r) * stepR.x * 2),
-        center.y - ((y / r) * stepR.y * 2),
-        Math.round(canvasObj.step.x / 4),
-        0,
-        Math.PI * 2
-    );
-    ctx.fillStyle = color;
-    ctx.fill();
+    for (let i=0; i < args.x.length; i++) {
+        x = Number.parseFloat(args['x'][i]);
+        y = Number.parseFloat(args['y'][i]);
+        r = Number.parseFloat(args['r'][i]);
+        ctx.beginPath();
+        ctx.arc(
+            center.x + ((x / r) * stepR.x * 2),
+            center.y - ((y / r) * stepR.y * 2),
+            Math.round(canvasObj.step.x / 4),
+            0,
+            Math.PI * 2
+        );
+        if (i === 0) {
+            ctx.fillStyle = colorForFirst;
+        } else {
+            ctx.fillStyle = otherColor;
+        }
+        ctx.fill();
+    }
 }
 
 function drawCanvas(canvas, canvasObj) {
@@ -156,5 +166,5 @@ function drawCanvas(canvas, canvasObj) {
     drawAxes(ctx, canvasObj, 'black');
     drawSerifs(ctx, canvasObj, 'black');
     drawLabels(ctx, canvasObj, 'black');
-    drawDot(ctx, canvasObj, '#F77A52');
+    drawDot(ctx, canvasObj, '#F77A52', '#000FFF');
 }

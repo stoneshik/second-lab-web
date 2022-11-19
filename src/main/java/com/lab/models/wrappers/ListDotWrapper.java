@@ -35,4 +35,28 @@ public class ListDotWrapper extends AbstractListDotWrapper<DotWrapper> {
         }
         return this.listDotWrapper.get(this.listDotWrapper.size() - 1);
     }
+
+    @Override
+    public String getAllParamsInString() {
+        if (this.listDotWrapper.isEmpty()) {
+            return "";
+        }
+        StringBuilder x = new StringBuilder("x=\"");
+        StringBuilder y = new StringBuilder("y=\"");
+        StringBuilder r = new StringBuilder("r=\"");
+        for (int i=0; i < this.listDotWrapper.size(); i++) {
+            x.append(String.format("%s", this.listDotWrapper.get(i).dot.getX()));
+            y.append(String.format("%s", this.listDotWrapper.get(i).dot.getY()));
+            r.append(String.format("%s", this.listDotWrapper.get(i).numberPlane.getR()));
+            if (i < this.listDotWrapper.size() - 1) {
+                x.append(";");
+                y.append(";");
+                r.append(";");
+            }
+        }
+        x.append("\"");
+        y.append("\"");
+        r.append("\"");
+        return String.format("%s %s %s", x, y, r);
+    }
 }

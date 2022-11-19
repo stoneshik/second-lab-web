@@ -44,6 +44,8 @@ public class AreaCheckServlet extends HttpServlet {
                     "Ошибка в аргументах:", dotWrapper.getListWrongParams()
             );
             dotWrapperParamError.addInSession(request.getSession());
+            includeHtml(request, response);
+            return;
         }
         dotWrapper.saveWrapper();
         includeHtml(request, response);

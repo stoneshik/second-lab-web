@@ -11,15 +11,8 @@
             <% ListDotWrapper listDotWrapper = (ListDotWrapper) request.getSession().getAttribute("list_dot_wrapper");
                 if (listDotWrapper == null) { %>
                     x="0" y="0" r="0"
-                <% } else {
-                    DotWrapper dotWrapper = listDotWrapper.getLast(); %>
-                <%= String.format(
-                            "x=%s, y=%s, r=%s",
-                            dotWrapper.getDot().getX(),
-                            dotWrapper.getDot().getY(),
-                            dotWrapper.getNumberPlane().getR()
-                    )
-                %>
+                <% } else { %>
+                <%= listDotWrapper.getAllParamsInString() %>
                 <% } %>
                     ></canvas>
         </div>
