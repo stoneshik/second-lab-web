@@ -8,7 +8,7 @@
 <div id="wrapper" class="container">
     <div>
         <h2>Results checks</h2>
-        <table id="results">
+        <table id="area-check-results" class="results">
             <tbody>
             <% ListDotWrapper listDotWrapper = (ListDotWrapper) request.getSession().getAttribute("list_dot_wrapper");
             if (listDotWrapper == null) { %>

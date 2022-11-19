@@ -15,6 +15,8 @@ import jakarta.servlet.annotation.*;
 public class AreaCheckServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        long startTime = System.nanoTime();
+
         String x = request.getParameter("x");
         String y = request.getParameter("y");
         String r = request.getParameter("r");
@@ -47,6 +49,7 @@ public class AreaCheckServlet extends HttpServlet {
             includeHtml(request, response);
             return;
         }
+        dotWrapper.setTimeLead(System.nanoTime() - startTime);
         dotWrapper.saveWrapper();
         includeHtml(request, response);
     }

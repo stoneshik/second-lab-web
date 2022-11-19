@@ -48,7 +48,7 @@
         </form>
         <div id="right_col">
             <h2>Результаты проверки</h2>
-            <table id="results">
+            <table id="results" class="results">
                 <tbody>
                 <% if (listDotWrapper == null) { %>
                     <tr class="response neutral single-column"><td colspan="3">Пока здесь пусто</td></tr>
@@ -61,9 +61,9 @@
                 <tr class="response fail triple-column">
                     <td>Точка не попала</td>
                     <% } %>
-                    <td>Время работы скрипта ms</td>
-                    <td class=per-last>Время: <%= new SimpleDateFormat("HH:mm:ss").format(new Date())%></td>
-                    <td class="last">Аргументы: <%=
+                    <td><%= dotWrapper.getTimeLead() * 0.001 %> ms</td>
+                    <td class=per-last><%= new SimpleDateFormat("HH:mm:ss").format(dotWrapper.getTimeDispatch())%></td>
+                    <td class="last">Параметры: <%=
                     String.format(
                             "x=%s, y=%s, r=%s",
                             dotWrapper.getDot().getX(),

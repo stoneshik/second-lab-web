@@ -186,15 +186,21 @@ fieldset input:checked {
     font-weight:normal;
 }
 
-#results {
-    max-width: 400px;
+.results {
     padding: 5px;
     margin-bottom: 10px;
     background-color: #EEE;
     border: none;
 }
-#results tr {
+.results tr {
     border: none;
+}
+#results {
+    max-width: 450px;
+    min-width: 250px;
+}
+#area-check-results {
+    min-width: 550px;
 }
 .response {
     display: inline-block;
