@@ -35,3 +35,33 @@ canvasObj.r = {
 }
 
 drawCanvas(canvas, canvasObj);
+
+
+const canvasError = document.getElementById('canvas-error');
+canvas.addEventListener('click', () => {
+    const regex = '^[-+]?[0-9]{0,9}(?:[.,][0-9]{1,9})*$';
+    let valueR = fieldR.value.trim();
+    if (valueR === '') {
+        writeError(canvasError, "Параметр R не задан");
+        return 0;
+    }
+    let resultR = valueR.match(regex);
+    if (resultR == null) {
+        writeError(canvasError, "Параметр R не правильный");
+        return 0;
+    }
+    valueR = parseFloat(valueR);
+    if (valueR < 1.0 || valueR > 5.0) {
+        writeError(canvasError, "Параметр R выходит за допустимые значения");
+        return 0;
+    }
+    let valueX = 0;
+    let valueY = 0;
+    $.get(
+        '/web2-1.0-SNAPSHOT/controller-servlet',
+        {'x': valueX, 'y': valueY, 'r': valueR},
+        function() {
+            location.reload();
+        }
+    );
+});
