@@ -25,7 +25,7 @@ public class ListDotWrapper extends AbstractListDotWrapper<DotWrapper> {
 
     @Override
     public void add(DotWrapper value) {
-        this.listDotWrapper.add(value);
+        this.listDotWrapper.add(0, value);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ListDotWrapper extends AbstractListDotWrapper<DotWrapper> {
         if (this.listDotWrapper.isEmpty()) {
             return null;
         }
-        return this.listDotWrapper.get(this.listDotWrapper.size() - 1);
+        return this.listDotWrapper.get(0);
     }
 
     @Override
