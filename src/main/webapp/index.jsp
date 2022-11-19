@@ -63,7 +63,7 @@
                 <tr class="response fail triple-column">
                     <td>Точка не попала</td>
                     <% } %>
-                    <td><%= dotWrapper.getTimeLead() * 0.001 %> ms</td>
+                    <td><%= String.format("%.8f", dotWrapper.getTimeLead() * 0.001) %> ms</td>
                     <td class=per-last><%= new SimpleDateFormat("HH:mm:ss").format(dotWrapper.getTimeDispatch())%></td>
                     <td class="last">Параметры: <%=
                     String.format(

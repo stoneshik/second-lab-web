@@ -6,7 +6,10 @@ const formError = document.getElementById('form-error');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (filterForm(fieldX, fieldY, fieldR, formError)) {
+    let valueX = findValueFromFieldset(fieldX);
+    let valueY = fieldY.value.trim();
+    let valueR = fieldR.value.trim();
+    if (filterForm(valueX, valueY, valueR, formError)) {
         form.submit();
     }
 });
@@ -36,9 +39,16 @@ canvasObj.r = {
 
 drawCanvas(canvas, canvasObj);
 
-
 const canvasError = document.getElementById('canvas-error');
-canvas.addEventListener('click', () => {
+
+function calcCoordinates(canvasObj, offsetX, offsetY, r) {
+    return {
+        'x': ((offsetX - canvasObj.center.x) / (canvasObj.r.step.x * 2)) * r,
+        'y': -(((offsetY - canvasObj.center.y) / (canvasObj.r.step.y * 2)) * r)
+    };
+}
+
+canvas.addEventListener('click', (e) => {
     const regex = '^[-+]?[0-9]{0,9}(?:[.,][0-9]{1,9})*$';
     let valueR = fieldR.value.trim();
     if (valueR === '') {
@@ -52,14 +62,17 @@ canvas.addEventListener('click', () => {
     }
     valueR = parseFloat(valueR);
     if (valueR < 1.0 || valueR > 5.0) {
-        writeError(canvasError, "Параметр R выходит за допустимые значения");
+        writeError(canvasError, "Параметр R выходит за допустимый диапазон");
         return 0;
     }
-    let valueX = 0;
-    let valueY = 0;
+    let xy = calcCoordinates(canvasObj, e.offsetX, e.offsetY, valueR);
+    if (filterForm(xy['x'], xy['y'], valueR, formError)) {
+        return 0;
+    }
+    console.log(xy);
     $.get(
         '/web2-1.0-SNAPSHOT/controller-servlet',
-        {'x': valueX, 'y': valueY, 'r': valueR},
+        {'x': xy['x'], 'y': xy['y'], 'r': valueR},
         function() {
             location.reload();
         }
