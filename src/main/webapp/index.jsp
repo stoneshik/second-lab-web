@@ -3,6 +3,10 @@
 <%@ page import="com.lab.models.dot.Dot" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%! private double roundDouble(double value, int places) {
+    double scale = Math.pow(10, places);
+    return Math.round(value * scale) / scale;
+} %>
 <jsp:include page="includes/header.html"/>
     <div id="wrapper" class="container">
         <div id="left_col">
@@ -63,14 +67,14 @@
                 <tr class="response fail triple-column">
                     <td>Точка не попала</td>
                     <% } %>
-                    <td><%= String.format("%.8f", dotWrapper.getTimeLead() * 0.001) %> ms</td>
+                    <td><%= String.format("%.4f", dotWrapper.getTimeLead() * 0.001) %> ms</td>
                     <td class=per-last><%= new SimpleDateFormat("HH:mm:ss").format(dotWrapper.getTimeDispatch())%></td>
                     <td class="last">Параметры: <%=
                     String.format(
                             "x=%s, y=%s, r=%s",
-                            dotWrapper.getDot().getX(),
-                            dotWrapper.getDot().getY(),
-                            dotWrapper.getNumberPlane().getR()
+                            roundDouble(dotWrapper.getDot().getX(), 6),
+                            roundDouble(dotWrapper.getDot().getY(), 6),
+                            roundDouble(dotWrapper.getNumberPlane().getR(), 6)
                     )
                     %></td>
                 </tr>
