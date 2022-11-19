@@ -40,7 +40,7 @@ function findValueFromFieldset(fieldset) {
     return '';
 }
 
-function filterForm(fieldX, fieldY, fieldR, formError) {
+function getValuesStringFromFieldForForm(fieldX, fieldY, fieldR, formError) {
     let valueX = findValueFromFieldset(fieldX);
     let valueY = fieldY.value.trim();
     let valueR = fieldR.value.trim();
@@ -52,9 +52,13 @@ function filterForm(fieldX, fieldY, fieldR, formError) {
             'Переданы пустые аргументы:',
             {'X': valueX, 'Y': valueY, 'R': valueR}
         );
-        return false;
+        return null;
     }
-    let regex = '^[-+]?[0-9]{0,9}(?:[.,][0-9]{1,9})*$';
+    return {'x': valueX, 'y': valueY, 'r': valueR};
+}
+
+function parseValuesFromStringForForm(valueX, valueY, valueR, formError) {
+    const regex = '^[-+]?[0-9]{0,9}(?:[.,][0-9]{1,9})*$';
     let resultX = valueX.match(regex);
     let resultY = valueY.match(regex);
     let resultR = valueR.match(regex);
@@ -66,11 +70,15 @@ function filterForm(fieldX, fieldY, fieldR, formError) {
             'Неправильный формат аргументов:',
             {'X': resultX, 'Y': resultY, 'R': resultR}
         );
-        return false;
+        return null;
     }
     valueX = parseFloat(valueX);
     valueY = parseFloat(valueY);
     valueR = parseFloat(valueR);
+    return {'x': valueX, 'y': valueY, 'r': valueR};
+}
+
+function filterForm(valueX, valueY, valueR, formError) {
     if ((valueX < -4.0 || valueX > 4.0) ||
         (valueY < -3.0 || valueY > 3.0) ||
         (valueR < 1.0 || valueR > 5.0)) {

@@ -6,10 +6,17 @@ const formError = document.getElementById('form-error');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
-    let valueX = findValueFromFieldset(fieldX);
-    let valueY = fieldY.value.trim();
-    let valueR = fieldR.value.trim();
-    if (filterForm(valueX, valueY, valueR, formError)) {
+    let valuesInStrings = getValuesStringFromFieldForForm(fieldX, fieldY, fieldR, formError);
+    if (!valuesInStrings) {
+        return;
+    }
+    let parsedValues = parseValuesFromStringForForm(
+        valuesInStrings['x'], valuesInStrings['y'], valuesInStrings['r'], formError
+    );
+    if (!parsedValues) {
+        return;
+    }
+    if (filterForm(parsedValues['x'], parsedValues['y'], parsedValues['r'], formError)) {
         form.submit();
     }
 });
@@ -66,7 +73,7 @@ canvas.addEventListener('click', (e) => {
         return 0;
     }
     let xy = calcCoordinates(canvasObj, e.offsetX, e.offsetY, valueR);
-    if (filterForm(xy['x'], xy['y'], valueR, formError)) {
+    if (!filterForm(xy['x'], xy['y'], valueR, formError)) {
         return 0;
     }
     console.log(xy);

@@ -131,7 +131,7 @@ function drawLabels(ctx, canvasObj, color) {
 
 function drawDot(ctx, canvasObj, colorForFirst, otherColor) {
     const args = getArgsForGraph(canvas);
-    if (args == null) {
+    if (!args) {
         return;
     }
     let x, y, r;
