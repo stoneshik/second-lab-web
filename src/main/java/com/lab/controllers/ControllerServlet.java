@@ -1,6 +1,5 @@
 package com.lab.controllers;
 
-import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
@@ -8,8 +7,7 @@ import java.io.IOException;
 
 @WebServlet(name = "ControllerServlet", value = "/controller-servlet")
 public class ControllerServlet extends HttpServlet {
-    private void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String x = request.getParameter("x");
         String y = request.getParameter("y");
         String r = request.getParameter("r");
@@ -22,14 +20,12 @@ public class ControllerServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         processRequest(request, response);
     }
 }

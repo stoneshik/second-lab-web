@@ -16,7 +16,6 @@ public class AreaCheckServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long startTime = System.nanoTime();
-
         String x = request.getParameter("x");
         String y = request.getParameter("y");
         String r = request.getParameter("r");

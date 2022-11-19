@@ -2,7 +2,6 @@
 <%@ page import="com.lab.models.wrappers.DotWrapper" %>
 <%@ page import="com.lab.models.dot.Dot" %>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <jsp:include page="includes/header.html"/>
     <div id="wrapper" class="container">
@@ -73,7 +72,7 @@
                     %></td>
                 </tr>
                 <% }
-                }%>
+                } %>
                 </tbody>
             </table>
         </div>
