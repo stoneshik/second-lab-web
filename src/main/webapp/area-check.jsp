@@ -40,7 +40,9 @@
             <p id="error-params" class="error">
                 <%= dotWrapperParamError.getComposeMessage()%>
             </p>
-            <% } %>
+            <% dotWrapperParamError.removeFromSession(request.getSession());
+                }
+            %>
         </table>
         <div><a href="/web2-1.0-SNAPSHOT/">Вернуться обратно</a></div>
     </div>

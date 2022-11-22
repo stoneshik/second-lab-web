@@ -14,4 +14,8 @@ public abstract class ErrorOutputHtml {
     public void addInSession(HttpSession session) {
         session.setAttribute(this.name, this);
     }
+
+    public void removeFromSession(HttpSession session) {
+        session.removeAttribute(this.name);
+    }
 }

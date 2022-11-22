@@ -31,7 +31,7 @@ public class AreaCheckServlet extends HttpServlet {
             );
         } catch (NumberFormatException e) {
             DotWrapperParamError dotWrapperParamError = new DotWrapperParamError(
-                    "Не получилось считать аргументы:"
+                    "Аргументы не соответствуют формату"
             );
             dotWrapperParamError.addInSession(request.getSession());
             redirect(response);
