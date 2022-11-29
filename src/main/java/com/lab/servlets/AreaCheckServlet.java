@@ -53,6 +53,6 @@ public class AreaCheckServlet extends HttpServlet {
 
     private void redirect(HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
-        response.sendRedirect("/web2-1.0-SNAPSHOT/area-check.jsp");
+        response.sendRedirect("/area-check.jsp");
     }
 }

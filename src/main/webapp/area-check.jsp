@@ -44,7 +44,7 @@
                 }
             %>
         </table>
-        <div><a href="/web2-1.0-SNAPSHOT/">Вернуться обратно</a></div>
+        <div><a href="/">Вернуться обратно</a></div>
     </div>
 </div>
 <jsp:include page="includes/footer.html"/>

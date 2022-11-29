@@ -2,6 +2,7 @@
 <%@ page import="com.lab.models.wrappers.DotWrapper" %>
 <%@ page import="com.lab.models.dot.Dot" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%! private double roundDouble(double value, int places) {
     double scale = Math.pow(10, places);
@@ -21,7 +22,7 @@
             <p id="canvas-error" class="error"></p>
         </div>
         <div>
-            <form action="/web2-1.0-SNAPSHOT/controller-servlet" method="GET" class="ui-form" id="dot-form">
+            <form action="/controller-servlet" method="GET" class="ui-form" id="dot-form">
                 <h3>Проверка попадания точки</h3>
                 <fieldset id="x">
                     <label>X:</label>
@@ -68,8 +69,10 @@
                 <tr class="response fail triple-column">
                     <td>Точка не попала</td>
                     <% } %>
-                    <td><%= String.format("%.4f", dotWrapper.getTimeLead() * 0.001) %> ms</td>
-                    <td class=per-last><%= new SimpleDateFormat("HH:mm:ss").format(dotWrapper.getTimeDispatch())%></td>
+                    <td><%= String.format("%.4f", dotWrapper.getTimeLead() * 0.001) %> мкс</td>
+                    <td class="time per-last">
+                        <%= dotWrapper.getTimeDispatch().format(DateTimeFormatter.ofPattern("HH:mm:ss"))%>
+                    </td>
                     <td class="last">Параметры: <%=
                     String.format(
                         "x=%s, y=%s, r=%s",

@@ -4,21 +4,22 @@ import com.lab.models.dot.AbstractDot;
 import com.lab.models.dot.AbstractNumberPlane;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.util.Date;
+import java.time.Clock;
+import java.time.LocalTime;
 import java.util.List;
 
 public abstract class AbstractDotWrapper {
     protected HttpServletRequest request;
     protected AbstractDot dot;
     protected AbstractNumberPlane numberPlane;
-    protected Date timeDispatch;
+    protected LocalTime timeDispatch;
     protected long timeLead;
 
     public AbstractDotWrapper(HttpServletRequest request, AbstractDot dot, AbstractNumberPlane numberPlane) {
         this.request = request;
         this.dot = dot;
         this.numberPlane = numberPlane;
-        this.timeDispatch = new Date();
+        this.timeDispatch = LocalTime.now(Clock.systemUTC());
         this.timeLead = 0L;
     }
 
@@ -34,7 +35,7 @@ public abstract class AbstractDotWrapper {
         return this.numberPlane;
     }
 
-    public Date getTimeDispatch() {
+    public LocalTime getTimeDispatch() {
         return this.timeDispatch;
     }
 

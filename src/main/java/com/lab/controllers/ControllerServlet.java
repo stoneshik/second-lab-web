@@ -12,10 +12,10 @@ public class ControllerServlet extends HttpServlet {
         String y = request.getParameter("y");
         String r = request.getParameter("r");
         if (x == null || y == null || r == null) {
-            response.sendRedirect("/web2-1.0-SNAPSHOT/");
+            response.sendRedirect("/");
             return;
         }
-        response.sendRedirect(String.format("/web2-1.0-SNAPSHOT/area-check-servlet?x=%s&y=%s&r=%s", x, y, r));
+        response.sendRedirect(String.format("/area-check-servlet?x=%s&y=%s&r=%s", x, y, r));
     }
 
 

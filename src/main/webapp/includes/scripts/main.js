@@ -1,10 +1,11 @@
+// Фильтрация и обработка формы
 const form = document.getElementById('dot-form');
 const fieldX = document.getElementById('x');
 const fieldY = document.getElementById('y');
 const fieldR = document.getElementById('r');
 const formError = document.getElementById('form-error');
 
-form.addEventListener('submit', (e) => {
+function formHandler(e) {
     e.preventDefault();
     let valuesInStrings = getValuesStringFromFieldForForm(fieldX, fieldY, fieldR, formError);
     if (!valuesInStrings) {
@@ -19,9 +20,9 @@ form.addEventListener('submit', (e) => {
     if (filterForm(parsedValues['x'], parsedValues['y'], parsedValues['r'], formError)) {
         form.submit();
     }
-});
+}
 
-
+// Скрипт канваса
 const canvas = document.getElementById('canvas');
 const canvasObj = {
     width: canvas.width,
@@ -44,8 +45,6 @@ canvasObj.r = {
     }
 }
 
-drawCanvas(canvas, canvasObj);
-
 const canvasError = document.getElementById('canvas-error');
 
 function calcCoordinates(canvasObj, offsetX, offsetY, r) {
@@ -55,7 +54,7 @@ function calcCoordinates(canvasObj, offsetX, offsetY, r) {
     };
 }
 
-canvas.addEventListener('click', (e) => {
+function canvasHandler(e) {
     const regex = '^[-+]?[0-9]{0,9}(?:[.,][0-9]{1,9})*$';
     let valueR = fieldR.value.trim();
     if (valueR === '') {
@@ -77,10 +76,39 @@ canvas.addEventListener('click', (e) => {
         return 0;
     }
     $.get(
-        '/web2-1.0-SNAPSHOT/controller-servlet',
+        '/controller-servlet',
         {'x': xy['x'], 'y': xy['y'], 'r': valueR},
         function() {
             location.reload();
         }
     );
-});
+}
+
+// Отображение времени в соотвествии с временным поясом у клиента
+const results = document.getElementById("results");
+const times = results.getElementsByClassName("time");
+
+function parseTime(t) {
+    const regexp = /(\d+)(?::(\d\d))?\s*(p?)/;
+    let date = new Date();
+    let time = t.match(regexp);
+    date.setUTCHours(parseInt(time[1]) + (time[3] ? 12 : 0));
+    date.setUTCMinutes(parseInt(time[2]) || 0);
+    return date;
+}
+
+function timeReduction(times) {
+    let timeDate;
+    for (let i=0; i < times.length; i++) {
+        timeDate = parseTime(times[i].textContent);
+        times[i].textContent = timeDate.getHours() + ':' + timeDate.getMinutes() + ':' + timeDate.getSeconds();
+    }
+}
+
+// Вызов всех функций
+window.onload = function() {
+    form.addEventListener('submit', formHandler);
+    drawCanvas(canvas, canvasObj);
+    canvas.addEventListener('click', canvasHandler);
+    if (times.length > 0) {timeReduction(times);}
+}
