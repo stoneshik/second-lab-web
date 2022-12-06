@@ -1,22 +1,22 @@
 package com.lab.models.wrappers;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
 
 public class ListDotWrapper extends AbstractListDotWrapper<DotWrapper> {
     volatile public static ListDotWrapper instance;
 
-    private ListDotWrapper(HttpServletRequest request) {
-        super(request, new ArrayList<>());
-        request.getSession().setAttribute("list_dot_wrapper", this);
+    private ListDotWrapper(HttpSession session) {
+        super(session, new ArrayList<>());
+        session.setAttribute("list_dot_wrapper", this);
     }
 
-    public static ListDotWrapper getInstance(HttpServletRequest request) {
-        if (instance == null){
+    public static ListDotWrapper getInstance(HttpSession session) {
+        if (instance == null || !instance.session.getId().equals(session.getId())) {
             synchronized (ListDotWrapper.class) {
-                if (instance == null) {
-                    instance = new ListDotWrapper(request);
+                if (instance == null || !instance.session.getId().equals(session.getId())) {
+                    instance = new ListDotWrapper(session);
                 }
             }
         }

@@ -1,15 +1,15 @@
 package com.lab.models.wrappers;
 
-import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
 public abstract class AbstractListDotWrapper<T extends AbstractDotWrapper> {
-    protected HttpServletRequest request;
+    protected HttpSession session;
     protected List<T> listDotWrapper;
 
-    public AbstractListDotWrapper(HttpServletRequest request, List<T> listDotWrapper) {
-        this.request = request;
+    public AbstractListDotWrapper(HttpSession session, List<T> listDotWrapper) {
+        this.session = session;
         this.listDotWrapper = listDotWrapper;
     }
 

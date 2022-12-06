@@ -13,7 +13,7 @@ public class DotWrapper extends AbstractDotWrapper {
 
     @Override
     public void saveWrapper() {
-        ListDotWrapper.getInstance(this.request).add(this);
+        ListDotWrapper.getInstance(this.request.getSession()).add(this);
     }
 
     @Override

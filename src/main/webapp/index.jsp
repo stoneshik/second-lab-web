@@ -1,7 +1,6 @@
 <%@ page import="com.lab.models.wrappers.ListDotWrapper" %>
 <%@ page import="com.lab.models.wrappers.DotWrapper" %>
 <%@ page import="com.lab.models.dot.Dot" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%! private double roundDouble(double value, int places) {
